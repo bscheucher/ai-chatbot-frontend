@@ -1,6 +1,6 @@
 import { Fragment } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
-import { ChevronUpDown, Check } from 'lucide-react'
+import { ChevronsUpDown, Check } from 'lucide-react'
 import { useChat } from '../../hooks/useChat'
 import { useModels } from '../../hooks/useModels'
 import Loading from '../ui/Loading'
@@ -63,7 +63,7 @@ const ModelSelector = () => {
               <span className="block truncate">{getCurrentModel().name}</span>
             </div>
             <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-              <ChevronUpDown
+              <ChevronsUpDown
                 className="h-5 w-5 text-gray-400"
                 aria-hidden="true"
               />

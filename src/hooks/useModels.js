@@ -1,28 +1,29 @@
+import { useQuery } from '@tanstack/react-query'
+import { modelService } from '../services/modelService'
+
 export const useModels = () => {
   const {
     data: modelsData,
     isLoading,
     error,
     refetch
-  } = useQuery(
-    'models',
-    modelService.getAllModels,
-    {
-      staleTime: 10 * 60 * 1000, // 10 minutes
-      cacheTime: 30 * 60 * 1000, // 30 minutes
-    }
-  )
+  } = useQuery({
+    queryKey: ['models'],
+    queryFn: modelService.getAllModels,
+    staleTime: 10 * 60 * 1000, // 10 minutes
+    gcTime: 30 * 60 * 1000, // 30 minutes (renamed from cacheTime in v4)
+  })
 
-  const models = modelsData?.data || {}
+  const models = modelsData?.data?.data || {}
   
-  // Format models for easier use - add safety check
+  // Format models for easier use
   const formattedModels = Object.entries(models).map(([provider, modelList]) => ({
     provider,
-    models: Array.isArray(modelList) ? modelList.map(model => ({
+    models: modelList.map(model => ({
       id: model.id,
       name: model.name,
       provider
-    })) : []
+    }))
   }))
 
   // Get all models as flat array
@@ -30,10 +31,9 @@ export const useModels = () => {
 
   return {
     models: formattedModels,
-    allModels: allModels || [], // Ensure it's always an array
+    allModels,
     isLoading,
     error,
     refetch
   }
 }
-
