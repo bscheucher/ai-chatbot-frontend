@@ -1,6 +1,6 @@
 import { Fragment } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
-import { ChevronUpDownIcon, CheckIcon } from '@heroicons/react/20/solid'
+import { ChevronUpDown, Check } from 'lucide-react'
 import { useChat } from '../../hooks/useChat'
 import { useModels } from '../../hooks/useModels'
 import Loading from '../ui/Loading'
@@ -63,7 +63,7 @@ const ModelSelector = () => {
               <span className="block truncate">{getCurrentModel().name}</span>
             </div>
             <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-              <ChevronUpDownIcon
+              <ChevronUpDown
                 className="h-5 w-5 text-gray-400"
                 aria-hidden="true"
               />
@@ -99,7 +99,7 @@ const ModelSelector = () => {
                       </div>
                       {selected ? (
                         <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-primary-600">
-                          <CheckIcon className="h-5 w-5" aria-hidden="true" />
+                          <Check className="h-5 w-5" aria-hidden="true" />
                         </span>
                       ) : null}
                     </>

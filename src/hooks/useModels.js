@@ -1,6 +1,3 @@
-import { useQuery } from 'react-query'
-import { modelService } from '../services/modelService'
-
 export const useModels = () => {
   const {
     data: modelsData,
@@ -18,14 +15,14 @@ export const useModels = () => {
 
   const models = modelsData?.data || {}
   
-  // Format models for easier use
+  // Format models for easier use - add safety check
   const formattedModels = Object.entries(models).map(([provider, modelList]) => ({
     provider,
-    models: modelList.map(model => ({
+    models: Array.isArray(modelList) ? modelList.map(model => ({
       id: model.id,
       name: model.name,
       provider
-    }))
+    })) : []
   }))
 
   // Get all models as flat array
@@ -33,9 +30,10 @@ export const useModels = () => {
 
   return {
     models: formattedModels,
-    allModels,
+    allModels: allModels || [], // Ensure it's always an array
     isLoading,
     error,
     refetch
   }
 }
+
