@@ -1,9 +1,12 @@
 import axios from 'axios'
 import useAuthStore from '../store/authStore'
 
+// Get API URL from environment variable
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api'
+
 // Create axios instance
 const api = axios.create({
-  baseURL: '/api',
+  baseURL: API_BASE_URL, // Changed from '/api' to use environment variable
   timeout: 30000, // 30 seconds timeout for AI responses
   headers: {
     'Content-Type': 'application/json',
